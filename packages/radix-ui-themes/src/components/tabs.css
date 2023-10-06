@@ -29,15 +29,23 @@
 .rt-TabsTriggerInner {
   position: absolute;
 
-  .rt-TabsTrigger[data-state='active'] & {
+  :where(.rt-TabsTrigger[data-state='inactive']) & {
+    letter-spacing: var(--tabs-trigger-inactive-letter-spacing);
+    word-spacing: var(--tabs-trigger-inactive-word-spacing);
+  }
+
+  :where(.rt-TabsTrigger[data-state='active']) & {
     font-weight: var(--font-weight-medium);
-    letter-spacing: -0.01em;
+    letter-spacing: var(--tabs-trigger-active-letter-spacing);
+    word-spacing: var(--tabs-trigger-active-word-spacing);
   }
 }
 
 .rt-TabsTriggerInnerHidden {
   visibility: hidden;
   font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tabs-trigger-active-letter-spacing);
+  word-spacing: var(--tabs-trigger-active-word-spacing);
 }
 
 .rt-TabsContent {
@@ -59,12 +67,12 @@
 .rt-TabsTriggerInner,
 .rt-TabsTriggerInnerHidden {
   padding: var(--tabs-trigger-inner-padding-y) var(--tabs-trigger-inner-padding-x);
-  border-radius: var(--tabs-trigger-inner-radius);
+  border-radius: var(--tabs-trigger-inner-border-radius);
 }
 
 @breakpoints {
   .rt-TabsList {
-    &.rt-r-size-1 {
+    &:where(.rt-r-size-1) {
       height: var(--space-6);
       font-size: var(--font-size-1);
       line-height: var(--line-height-1);
@@ -72,9 +80,9 @@
       --tabs-trigger-padding-x: var(--space-1);
       --tabs-trigger-inner-padding-x: var(--space-1);
       --tabs-trigger-inner-padding-y: calc(var(--space-1) * 0.5);
-      --tabs-trigger-inner-radius: var(--radius-1);
+      --tabs-trigger-inner-border-radius: var(--radius-1);
     }
-    &.rt-r-size-2 {
+    &:where(.rt-r-size-2) {
       height: var(--space-7);
       font-size: var(--font-size-2);
       line-height: var(--line-height-2);
@@ -82,7 +90,7 @@
       --tabs-trigger-padding-x: var(--space-2);
       --tabs-trigger-inner-padding-x: var(--space-2);
       --tabs-trigger-inner-padding-y: var(--space-1);
-      --tabs-trigger-inner-radius: var(--radius-2);
+      --tabs-trigger-inner-border-radius: var(--radius-2);
     }
   }
 }
@@ -101,23 +109,24 @@
   color: var(--gray-a11);
 
   @media (hover: hover) {
-    &:hover {
+    &:where(:hover) {
       color: var(--gray-12);
     }
-    &:hover .rt-TabsTriggerInner {
+    &:where(:hover) :where(.rt-TabsTriggerInner) {
       background-color: var(--gray-a3);
     }
-    &:focus-visible:hover .rt-TabsTriggerInner {
+    &:where(:focus-visible:hover) :where(.rt-TabsTriggerInner) {
       background-color: var(--accent-a3);
     }
   }
-  &[data-state='active'] {
+  &:where([data-state='active']) {
     color: var(--gray-12);
   }
-  &:focus-visible .rt-TabsTriggerInner {
-    box-shadow: 0 0 0 2px var(--accent-a8);
+  &:where(:focus-visible) :where(.rt-TabsTriggerInner) {
+    outline: 2px solid var(--color-focus-root);
+    outline-offset: -2px;
   }
-  &[data-state='active']::before {
+  &:where([data-state='active'])::before {
     box-sizing: border-box;
     content: '';
     height: 2px;
@@ -129,6 +138,6 @@
   }
 }
 
-.rt-TabsContent:focus-visible {
-  box-shadow: 0 0 0 2px var(--accent-a8);
+.rt-TabsContent:where(:focus-visible) {
+  outline: 2px solid var(--color-focus-root);
 }

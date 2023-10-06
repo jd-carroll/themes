@@ -128,7 +128,7 @@ const DropdownMenuItem = React.forwardRef<DropdownMenuItemElement, DropdownMenuI
         data-accent-color={color}
         {...itemProps}
         ref={forwardedRef}
-        className={classNames('rt-reset-a', 'rt-BaseMenuItem', 'rt-DropdownMenuItem', className)}
+        className={classNames('rt-reset', 'rt-BaseMenuItem', 'rt-DropdownMenuItem', className)}
       >
         <Slottable>{children}</Slottable>
         {shortcut && <div className="rt-BaseMenuShortcut rt-DropdownMenuShortcut">{shortcut}</div>}
@@ -189,7 +189,7 @@ const DropdownMenuRadioItem = React.forwardRef<
     >
       <Slottable>{children}</Slottable>
       <DropdownMenuPrimitive.ItemIndicator className="rt-BaseMenuItemIndicator rt-DropdownMenuItemIndicator">
-        <ThickCheckIcon />
+        <ThickCheckIcon className="rt-BaseMenuItemIndicatorIcon rt-DropdownMenuItemIndicatorIcon" />
       </DropdownMenuPrimitive.ItemIndicator>
     </DropdownMenuPrimitive.RadioItem>
   );
@@ -220,7 +220,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     >
       <Slottable>{children}</Slottable>
       <DropdownMenuPrimitive.ItemIndicator className="rt-BaseMenuItemIndicator rt-DropdownMenuItemIndicator">
-        <ThickCheckIcon />
+        <ThickCheckIcon className="rt-BaseMenuItemIndicatorIcon rt-ContextMenuItemIndicatorIcon" />
       </DropdownMenuPrimitive.ItemIndicator>
       {shortcut && <div className="rt-BaseMenuShortcut rt-DropdownMenuShortcut">{shortcut}</div>}
     </DropdownMenuPrimitive.CheckboxItem>
@@ -230,7 +230,9 @@ DropdownMenuCheckboxItem.displayName = 'DropdownMenuCheckboxItem';
 
 interface DropdownMenuSubProps
   extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Sub> {}
-const DropdownMenuSub = (props: DropdownMenuSubProps) => <DropdownMenuPrimitive.Sub {...props} />;
+const DropdownMenuSub: React.FC<DropdownMenuSubProps> = (props) => (
+  <DropdownMenuPrimitive.Sub {...props} />
+);
 DropdownMenuSub.displayName = 'DropdownMenuSub';
 
 type DropdownMenuSubTriggerElement = React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>;
@@ -255,7 +257,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
     >
       <Slottable>{children}</Slottable>
       <div className="rt-BaseMenuShortcut rt-DropdownMenuShortcut">
-        <ThickChevronRightIcon className="rt-BaseMenuSubTriggerIcon" />
+        <ThickChevronRightIcon className="rt-BaseMenuSubTriggerIcon rt-DropdownMenuSubtriggerIcon" />
       </div>
     </DropdownMenuPrimitive.SubTrigger>
   );
@@ -279,6 +281,8 @@ const DropdownMenuSubContent = React.forwardRef<
         <DropdownMenuPrimitive.SubContent
           data-accent-color={color}
           alignOffset={-Number(size) * 4}
+          // Side offset accounts for the outer solid box-shadow
+          sideOffset={1}
           collisionPadding={10}
           {...subContentProps}
           ref={forwardedRef}
@@ -355,4 +359,20 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
   DropdownMenuSeparator,
+};
+
+export type {
+  DropdownMenuRootProps,
+  DropdownMenuTriggerProps,
+  DropdownMenuContentProps,
+  DropdownMenuLabelProps,
+  DropdownMenuItemProps,
+  DropdownMenuGroupProps,
+  DropdownMenuRadioGroupProps,
+  DropdownMenuRadioItemProps,
+  DropdownMenuCheckboxItemProps,
+  DropdownMenuSubProps,
+  DropdownMenuSubTriggerProps,
+  DropdownMenuSubContentProps,
+  DropdownMenuSeparatorProps,
 };

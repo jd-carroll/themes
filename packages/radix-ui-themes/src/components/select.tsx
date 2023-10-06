@@ -57,7 +57,7 @@ const SelectTrigger = React.forwardRef<SelectTriggerElement, SelectTriggerProps>
           {...triggerProps}
           ref={forwardedRef}
           className={classNames(
-            'rt-reset-button',
+            'rt-reset',
             'rt-SelectTrigger',
             className,
             withBreakpoints(size, 'rt-r-size'),
@@ -65,7 +65,7 @@ const SelectTrigger = React.forwardRef<SelectTriggerElement, SelectTriggerProps>
             withMarginProps(marginProps)
           )}
         >
-          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          <span className="rt-SelectTriggerInner">
             <SelectPrimitive.Value placeholder={placeholder} />
           </span>
           <SelectPrimitive.Icon asChild>
@@ -105,7 +105,6 @@ const SelectContent = React.forwardRef<SelectContentElement, SelectContentProps>
           <SelectPrimitive.Content
             data-accent-color={resolvedColor}
             sideOffset={4}
-            align="center"
             {...contentProps}
             ref={forwardedRef}
             className={classNames(
@@ -127,7 +126,7 @@ const SelectContent = React.forwardRef<SelectContentElement, SelectContentProps>
                 </ScrollAreaPrimitive.Viewport>
               </SelectPrimitive.Viewport>
               <ScrollAreaPrimitive.Scrollbar
-                className="rt-ScrollAreaScrollbar size-1"
+                className="rt-ScrollAreaScrollbar rt-r-size-1"
                 orientation="vertical"
               >
                 <ScrollAreaPrimitive.Thumb className="rt-ScrollAreaThumb" />
@@ -152,7 +151,7 @@ const SelectItem = React.forwardRef<SelectItemElement, SelectItemProps>((props, 
       className={classNames('rt-SelectItem', className)}
     >
       <SelectPrimitive.ItemIndicator className="rt-SelectItemIndicator">
-        <ThickCheckIcon />
+        <ThickCheckIcon className="rt-SelectItemIndicatorIcon" />
       </SelectPrimitive.ItemIndicator>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     </SelectPrimitive.Item>
@@ -222,4 +221,14 @@ export {
   SelectGroup,
   SelectLabel,
   SelectSeparator,
+};
+
+export type {
+  SelectRootProps,
+  SelectTriggerProps,
+  SelectContentProps,
+  SelectItemProps,
+  SelectGroupProps,
+  SelectLabelProps,
+  SelectSeparatorProps,
 };

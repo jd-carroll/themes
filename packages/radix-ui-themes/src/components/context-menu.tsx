@@ -127,7 +127,7 @@ const ContextMenuItem = React.forwardRef<ContextMenuItemElement, ContextMenuItem
         data-accent-color={color}
         {...itemProps}
         ref={forwardedRef}
-        className={classNames('rt-reset-a', 'rt-BaseMenuItem', 'rt-ContextMenuItem', className)}
+        className={classNames('rt-reset', 'rt-BaseMenuItem', 'rt-ContextMenuItem', className)}
       >
         <Slottable>{children}</Slottable>
         {shortcut && <div className="rt-BaseMenuShortcut rt-ContextMenuShortcut">{shortcut}</div>}
@@ -188,7 +188,7 @@ const ContextMenuRadioItem = React.forwardRef<
     >
       <Slottable>{children}</Slottable>
       <ContextMenuPrimitive.ItemIndicator className="rt-BaseMenuItemIndicator rt-ContextMenuItemIndicator">
-        <ThickCheckIcon />
+        <ThickCheckIcon className="rt-BaseMenuItemIndicatorIcon rt-ContextMenuItemIndicatorIcon" />
       </ContextMenuPrimitive.ItemIndicator>
     </ContextMenuPrimitive.RadioItem>
   );
@@ -219,7 +219,7 @@ const ContextMenuCheckboxItem = React.forwardRef<
     >
       <Slottable>{children}</Slottable>
       <ContextMenuPrimitive.ItemIndicator className="rt-BaseMenuItemIndicator rt-ContextMenuItemIndicator">
-        <ThickCheckIcon />
+        <ThickCheckIcon className="rt-BaseMenuItemIndicatorIcon rt-ContextMenuItemIndicatorIcon" />
       </ContextMenuPrimitive.ItemIndicator>
       {shortcut && <div className="rt-BaseMenuShortcut rt-ContextMenuShortcut">{shortcut}</div>}
     </ContextMenuPrimitive.CheckboxItem>
@@ -229,7 +229,9 @@ ContextMenuCheckboxItem.displayName = 'ContextMenuCheckboxItem';
 
 interface ContextMenuSubProps
   extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Sub> {}
-const ContextMenuSub = (props: ContextMenuSubProps) => <ContextMenuPrimitive.Sub {...props} />;
+const ContextMenuSub: React.FC<ContextMenuSubProps> = (props) => (
+  <ContextMenuPrimitive.Sub {...props} />
+);
 ContextMenuSub.displayName = 'ContextMenuSub';
 
 type ContextMenuSubTriggerElement = React.ElementRef<typeof ContextMenuPrimitive.SubTrigger>;
@@ -254,7 +256,7 @@ const ContextMenuSubTrigger = React.forwardRef<
     >
       <Slottable>{children}</Slottable>
       <div className="rt-BaseMenuShortcut rt-ContextMenuShortcut">
-        <ThickChevronRightIcon className="rt-BaseMenuSubTriggerIcon" />
+        <ThickChevronRightIcon className="rt-BaseMenuSubTriggerIcon rt-ContextMenuSubTriggerIcon" />
       </div>
     </ContextMenuPrimitive.SubTrigger>
   );
@@ -278,6 +280,8 @@ const ContextMenuSubContent = React.forwardRef<
         <ContextMenuPrimitive.SubContent
           data-accent-color={color}
           alignOffset={-Number(size) * 4}
+          // Side offset accounts for the outer solid box-shadow
+          sideOffset={1}
           collisionPadding={10}
           {...subContentProps}
           ref={forwardedRef}
@@ -354,4 +358,20 @@ export {
   ContextMenuSubTrigger,
   ContextMenuSubContent,
   ContextMenuSeparator,
+};
+
+export type {
+  ContextMenuRootProps,
+  ContextMenuTriggerProps,
+  ContextMenuContentProps,
+  ContextMenuLabelProps,
+  ContextMenuItemProps,
+  ContextMenuGroupProps,
+  ContextMenuRadioGroupProps,
+  ContextMenuRadioItemProps,
+  ContextMenuCheckboxItemProps,
+  ContextMenuSubProps,
+  ContextMenuSubTriggerProps,
+  ContextMenuSubContentProps,
+  ContextMenuSeparatorProps,
 };

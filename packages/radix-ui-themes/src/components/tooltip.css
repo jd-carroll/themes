@@ -1,26 +1,27 @@
 .rt-TooltipContent {
   padding: var(--space-1) var(--space-2);
-  --tooltip-bg: var(--gray-12);
-  background-color: var(--tooltip-bg);
-  border-radius: max(var(--radius-2), var(--radius-full));
+  background-color: var(--gray-12);
+  border-radius: var(--radius-2);
 
   transform-origin: var(--radix-tooltip-content-transform-origin);
 
   animation-duration: 200ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 
-  &[data-state='delayed-open'] {
-    &[data-side='top'] {
-      animation-name: slideUpAndFadeIn;
-    }
-    &[data-side='bottom'] {
-      animation-name: slideDownAndFadeIn;
-    }
-    &[data-side='left'] {
-      animation-name: slideLeftAndFadeIn;
-    }
-    &[data-side='right'] {
-      animation-name: slideRightAndFadeIn;
+  @media (prefers-reduced-motion: no-preference) {
+    &:where([data-state='delayed-open']) {
+      &:where([data-side='top']) {
+        animation-name: rt-slide-up, rt-fade-in;
+      }
+      &:where([data-side='bottom']) {
+        animation-name: rt-slide-down, rt-fade-in;
+      }
+      &:where([data-side='left']) {
+        animation-name: rt-slide-left, rt-fade-in;
+      }
+      &:where([data-side='right']) {
+        animation-name: rt-slide-right, rt-fade-in;
+      }
     }
   }
 }
@@ -32,20 +33,5 @@
 }
 
 .rt-TooltipArrow {
-  fill: var(--tooltip-bg);
-}
-
-/***************************************************************************************************
- *                                                                                                 *
- * VARIANTS                                                                                        *
- *                                                                                                 *
- ***************************************************************************************************/
-
-.rt-TooltipContent.rt-multiline {
-  max-width: 250px;
-  border-radius: var(--radius-2);
-
-  & .rt-TooltipText {
-    line-height: var(--default-line-height);
-  }
+  fill: var(--gray-12);
 }

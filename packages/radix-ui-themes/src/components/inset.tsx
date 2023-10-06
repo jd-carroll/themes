@@ -13,6 +13,7 @@ const Inset = React.forwardRef<InsetElement, InsetProps>((props, forwardedRef) =
   const {
     className,
     side = insetPropDefs.side.default,
+    clip = insetPropDefs.clip.default,
     p,
     px,
     py,
@@ -30,6 +31,7 @@ const Inset = React.forwardRef<InsetElement, InsetProps>((props, forwardedRef) =
         'rt-Inset',
         className,
         withBreakpoints(side, 'rt-r-side'),
+        withBreakpoints(clip, 'rt-r-clip'),
         withBreakpoints(p, 'rt-r-p'),
         withBreakpoints(px, 'rt-r-px'),
         withBreakpoints(py, 'rt-r-py'),
@@ -45,3 +47,4 @@ const Inset = React.forwardRef<InsetElement, InsetProps>((props, forwardedRef) =
 Inset.displayName = 'Inset';
 
 export { Inset };
+export type { InsetProps };

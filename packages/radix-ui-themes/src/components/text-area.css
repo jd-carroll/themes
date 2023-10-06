@@ -1,17 +1,35 @@
-.rt-TextArea {
+.rt-TextAreaRoot {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 0;
+}
+
+.rt-TextAreaInput {
   appearance: none;
-  border-width: 0;
+  padding: 0;
+  border-radius: inherit;
+  background-color: transparent;
   font-family: inherit;
   -webkit-tap-highlight-color: transparent;
-  outline: none;
+  resize: none;
 
   box-sizing: border-box;
+  position: relative;
   display: block;
   width: 100%;
-  flex-shrink: 0;
   flex-grow: 1;
+  z-index: 1;
 
-  resize: none;
+  /* Clip text to inner shadow */
+  border: var(--text-area-border-width) solid transparent;
+  padding: var(--text-area-padding-y) var(--text-area-padding-x);
+
+  &:where(:focus) {
+    outline: 2px solid var(--color-focus-root);
+    outline-offset: -1px;
+  }
 
   /* scrollbar */
   & {
@@ -20,14 +38,14 @@
     scrollbar-width: thin;
   }
   &::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+    width: var(--space-3);
+    height: var(--space-3);
   }
   &::-webkit-scrollbar-track,
   &::-webkit-scrollbar-thumb {
     background-clip: content-box;
-    border: 4px solid transparent;
-    border-radius: 12px;
+    border: var(--space-1) solid transparent;
+    border-radius: var(--space-3);
   }
   &::-webkit-scrollbar-track {
     background-color: var(--gray-a3);
@@ -36,10 +54,17 @@
     background-color: var(--gray-a8);
   }
   @media (hover: hover) {
-    &:not(:disabled)::-webkit-scrollbar-thumb:hover {
+    :where(&:not(:disabled))::-webkit-scrollbar-thumb:hover {
       background-color: var(--gray-a9);
     }
   }
+}
+
+.rt-TextAreaChrome {
+  position: absolute;
+  border-radius: inherit;
+  z-index: 0;
+  inset: 0;
 }
 
 /***************************************************************************************************
@@ -49,30 +74,42 @@
  ***************************************************************************************************/
 
 @breakpoints {
-  .rt-TextArea {
-    &.rt-r-size-1 {
+  .rt-TextAreaRoot {
+    &:where(.rt-r-size-1) {
       min-height: var(--space-8);
-      padding: var(--space-1);
       border-radius: var(--radius-2);
-      font-size: var(--font-size-1);
-      line-height: var(--line-height-1);
-      letter-spacing: var(--letter-spacing-1);
+
+      & :where(.rt-TextAreaInput) {
+        --text-area-padding-y: calc(var(--space-1) - var(--text-area-border-width));
+        --text-area-padding-x: calc(var(--space-1) * 1.5 - var(--text-area-border-width));
+        font-size: var(--font-size-1);
+        line-height: var(--line-height-1);
+        letter-spacing: var(--letter-spacing-1);
+      }
     }
-    &.rt-r-size-2 {
+    &:where(.rt-r-size-2) {
       min-height: var(--space-9);
-      padding: var(--space-2);
       border-radius: var(--radius-2);
-      font-size: var(--font-size-2);
-      line-height: var(--line-height-2);
-      letter-spacing: var(--letter-spacing-2);
+
+      & :where(.rt-TextAreaInput) {
+        --text-area-padding-y: calc(var(--space-1) * 1.5 - var(--text-area-border-width));
+        --text-area-padding-x: calc(var(--space-2) - var(--text-area-border-width));
+        font-size: var(--font-size-2);
+        line-height: var(--line-height-2);
+        letter-spacing: var(--letter-spacing-2);
+      }
     }
-    &.rt-r-size-3 {
+    &:where(.rt-r-size-3) {
       min-height: 80px;
-      padding: var(--space-2) var(--space-3);
       border-radius: var(--radius-3);
-      font-size: var(--font-size-3);
-      line-height: var(--line-height-3);
-      letter-spacing: var(--letter-spacing-3);
+
+      & :where(.rt-TextAreaInput) {
+        --text-area-padding-y: calc(var(--space-2) - var(--text-area-border-width));
+        --text-area-padding-x: calc(var(--space-3) - var(--text-area-border-width));
+        font-size: var(--font-size-3);
+        line-height: var(--line-height-3);
+        letter-spacing: var(--letter-spacing-3);
+      }
     }
   }
 }
@@ -83,88 +120,133 @@
  *                                                                                                 *
  ***************************************************************************************************/
 
-.rt-TextArea {
-  &::placeholder {
-    color: var(--gray-a10);
-    /* Firefox */
-    opacity: 1;
-  }
-  &:autofill {
-    -webkit-text-fill-color: var(--gray-12);
-    box-shadow: var(--shadow-1), inset 0 0 0 100px var(--accent-3);
-    &:focus {
-      box-shadow: inset 0 0 0 1px var(--accent-8), 0 0 0 1px var(--accent-a8),
-        inset 0 0 0 100px var(--accent-3);
-    }
-  }
-  &:read-only {
-    &::placeholder {
-      color: var(--gray-a7);
-    }
-    &::selection {
-      background-color: var(--gray-a5);
-    }
-  }
-}
-
 /* surface */
+.rt-TextAreaRoot:where(.rt-variant-surface) {
+  & :where(.rt-TextAreaInput) {
+    --text-area-border-width: 1px;
+    color: var(--gray-12);
 
-.rt-TextArea.rt-variant-surface {
-  color: var(--gray-12);
-  background-color: var(--color-surface);
-  box-shadow: inset 0 0 0 1px var(--gray-a7);
-  &:focus {
-    box-shadow: inset 0 0 0 1px var(--accent-8), 0 0 0 1px var(--accent-a8);
+    & + :where(.rt-TextAreaChrome) {
+      box-shadow: inset 0 0 0 1px var(--gray-a7);
+      background-color: var(--color-surface);
+
+      /* Blend inner shadow with page background */
+      padding: 1px;
+      background-clip: content-box;
+    }
+    &::placeholder {
+      color: var(--gray-a10);
+      /* Firefox */
+      opacity: 1;
+    }
+    &:where(:autofill, [data-com-onepassword-filled]) {
+      /* Reliably removes native autofill colors */
+      background-clip: text;
+      -webkit-text-fill-color: var(--gray-12);
+      & + :where(.rt-TextAreaChrome) {
+        background-color: var(--accent-a4);
+      }
+    }
+    &:where(:disabled, :read-only) {
+      & + :where(.rt-TextAreaChrome) {
+        /* Blend with grey */
+        background-image: linear-gradient(var(--gray-a3), var(--gray-a3));
+      }
+    }
   }
 }
 
 /* classic */
+.rt-TextAreaRoot:where(.rt-variant-classic) {
+  & :where(.rt-TextAreaInput) {
+    --text-area-border-width: 1px;
+    color: var(--gray-12);
 
-.rt-TextArea.rt-variant-classic {
-  color: var(--gray-12);
-  background-color: var(--color-surface);
-  box-shadow: var(--shadow-1);
-  &:focus {
-    box-shadow: inset 0 0 0 1px var(--accent-8), 0 0 0 1px var(--accent-a8), var(--shadow-1);
+    & + :where(.rt-TextAreaChrome) {
+      background-color: var(--color-surface);
+      box-shadow: var(--shadow-1);
+
+      /* Blend inner shadow with page background */
+      padding: 1px;
+      background-clip: content-box;
+    }
+    &::placeholder {
+      color: var(--gray-a10);
+      /* Firefox */
+      opacity: 1;
+    }
+    &:where(:autofill, [data-com-onepassword-filled]) {
+      /* Reliably removes native autofill colors */
+      background-clip: text;
+      -webkit-text-fill-color: var(--gray-12);
+      & + :where(.rt-TextAreaChrome) {
+        background-color: var(--accent-a4);
+      }
+    }
+    &:where(:disabled, :read-only) {
+      & + :where(.rt-TextAreaChrome) {
+        /* Blend with grey */
+        background-image: linear-gradient(var(--gray-a3), var(--gray-a3));
+      }
+    }
   }
 }
 
 /* soft */
-.rt-TextArea.rt-variant-soft {
-  color: var(--accent-12);
-  background-color: var(--accent-a3);
-  &:focus {
-    box-shadow: inset 0 0 0 1px var(--accent-8), 0 0 0 1px var(--accent-a8);
-  }
-  &:read-only {
-    color: var(--gray-12);
-  }
-  &::placeholder {
+.rt-TextAreaRoot:where(.rt-variant-soft) {
+  & :where(.rt-TextAreaInput) {
+    --text-area-border-width: 0px;
     color: var(--accent-12);
-    opacity: 0.5;
-  }
-  &::selection {
-    background-color: var(--accent-a5);
+
+    & + :where(.rt-TextAreaChrome) {
+      background-color: var(--accent-a3);
+    }
+    &::selection {
+      /* Use gray selection when component color is gray */
+      background-color: var(--accent-a5);
+    }
+    &::placeholder {
+      color: var(--accent-12);
+      opacity: 0.65;
+    }
+    &:where(:autofill, [data-com-onepassword-filled]) {
+      /* Reliably removes native autofill colors */
+      background-clip: text;
+      -webkit-text-fill-color: var(--accent-12);
+      & + :where(.rt-TextAreaChrome) {
+        background-color: var(--accent-a5);
+      }
+    }
+    &:where(:focus) {
+      /* Use gray outline when component color is gray */
+      outline-color: var(--accent-8);
+    }
+    &:where(:disabled, :read-only) {
+      & + :where(.rt-TextAreaChrome) {
+        background-color: var(--gray-a4);
+      }
+    }
   }
 }
 
-/* all disabled textareas */
-
-.rt-TextArea:disabled {
-  color: var(--gray-a9);
-  box-shadow: inset 0 0 0 1px var(--gray-a6);
-  background-color: var(--gray-a3);
-  cursor: not-allowed;
-}
-
-/* all readonly textareas */
-
-.rt-TextArea:read-only {
-  background-color: var(--gray-a3);
-  &:not(:focus) {
-    box-shadow: inset 0 0 0 1px var(--gray-a6);
-  }
-  &:focus {
-    box-shadow: inset 0 0 0 1px var(--gray-8), 0 0 0 1px var(--gray-a8);
+/* all disabled and read-only text-areas */
+.rt-TextAreaInput {
+  &:where(:disabled, :read-only) {
+    cursor: text;
+    color: var(--gray-a11);
+    /* Safari */
+    -webkit-text-fill-color: var(--gray-a11);
+    &:where(:focus) {
+      outline: 2px solid var(--gray-8);
+    }
+    &::placeholder {
+      opacity: 0.5;
+    }
+    &:where(:placeholder-shown) {
+      cursor: default;
+    }
+    &::selection {
+      background-color: var(--gray-a5);
+    }
   }
 }

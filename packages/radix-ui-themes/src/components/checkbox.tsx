@@ -40,12 +40,12 @@ const Checkbox = React.forwardRef<CheckboxElement, CheckboxProps>((props, forwar
         data-accent-color={color}
         {...checkboxProps}
         ref={forwardedRef}
-        className={classNames('rt-reset-button', 'rt-CheckboxButton', `rt-variant-${variant}`, {
+        className={classNames('rt-reset', 'rt-CheckboxButton', `rt-variant-${variant}`, {
           'rt-high-contrast': highContrast,
         })}
       >
         <CheckboxPrimitive.Indicator className="rt-CheckboxIndicator">
-          <ThickCheckIcon />
+          <ThickCheckIcon className="rt-CheckboxIndicatorIcon" />
         </CheckboxPrimitive.Indicator>
       </CheckboxPrimitive.Root>
     </span>
@@ -54,3 +54,4 @@ const Checkbox = React.forwardRef<CheckboxElement, CheckboxProps>((props, forwar
 Checkbox.displayName = 'Checkbox';
 
 export { Checkbox };
+export type { CheckboxProps };

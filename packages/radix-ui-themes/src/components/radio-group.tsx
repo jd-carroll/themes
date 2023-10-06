@@ -60,7 +60,7 @@ const RadioGroupItem = React.forwardRef<RadioGroupItemElement, RadioGroupItemPro
         <RadioGroupPrimitive.Item
           {...itemProps}
           ref={forwardedRef}
-          className={classNames('rt-reset-button', 'rt-RadioGroupButton')}
+          className={classNames('rt-reset', 'rt-RadioGroupButton')}
         >
           <RadioGroupPrimitive.Indicator className="rt-RadioGroupIndicator" />
         </RadioGroupPrimitive.Item>
@@ -79,3 +79,4 @@ const RadioGroup = Object.assign(
 );
 
 export { RadioGroup, RadioGroupRoot, RadioGroupItem };
+export type { RadioGroupRootProps, RadioGroupItemProps };

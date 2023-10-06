@@ -29,13 +29,14 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>((props, 
   const Comp = asChild ? Slot : 'button';
   return (
     <Comp
+      // The `data-disabled` attribute enables correct styles when doing `<Button asChild disabled>`
+      data-disabled={baseButtonProps.disabled || undefined}
       data-accent-color={color}
       data-radius={radius}
       {...baseButtonProps}
       ref={forwardedRef}
       className={classNames(
-        'rt-reset-button',
-        'rt-reset-a',
+        'rt-reset',
         'rt-BaseButton',
         className,
         withBreakpoints(size, 'rt-r-size'),
@@ -49,3 +50,4 @@ const BaseButton = React.forwardRef<BaseButtonElement, BaseButtonProps>((props, 
 BaseButton.displayName = 'BaseButton';
 
 export { BaseButton };
+export type { BaseButtonProps };

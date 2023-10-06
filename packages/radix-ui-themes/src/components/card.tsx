@@ -35,8 +35,7 @@ const Card = React.forwardRef<CardElement, CardProps>((props, forwardedRef) => {
       ref={forwardedRef}
       {...cardProps}
       className={classNames(
-        'rt-reset-a',
-        'rt-reset-button',
+        'rt-reset',
         'rt-Card',
         className,
         withBreakpoints(size, 'rt-r-size'),
@@ -51,3 +50,4 @@ const Card = React.forwardRef<CardElement, CardProps>((props, forwardedRef) => {
 Card.displayName = 'Card';
 
 export { Card };
+export type { CardProps };

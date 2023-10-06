@@ -1058,7 +1058,7 @@ export default function ExploreComponents() {
                           <PanelBackgroundImage id="1" width="100%" height="200%" />
                         </Flex>
 
-                        <Card size="4" style={{ width: 400 }}>
+                        <Card variant="classic" size="4" style={{ width: 400 }}>
                           <Box height="7" mb="4">
                             <Heading as="h3" size="6" mt="-1">
                               Sign up
@@ -1070,13 +1070,13 @@ export default function ExploreComponents() {
                               <Text as="div" size="2" weight="medium" mb="2">
                                 Email address
                               </Text>
-                              <TextFieldInput tabIndex={-1} placeholder="Enter your email" />
+                              <TextFieldInput variant="classic" placeholder="Enter your email" />
                             </label>
                           </Box>
 
                           <Box mb="5" position="relative">
                             <Box position="absolute" top="0" right="0" style={{ marginTop: -2 }}>
-                              <Link href="#card" tabIndex={-1} size="2">
+                              <Link href="#card" size="2">
                                 Forgot password?
                               </Link>
                             </Box>
@@ -1085,15 +1085,15 @@ export default function ExploreComponents() {
                               <Text as="div" size="2" weight="medium" mb="2">
                                 Password
                               </Text>
-                              <TextFieldInput tabIndex={-1} placeholder="Enter your password" />
+                              <TextFieldInput variant="classic" placeholder="Enter your password" />
                             </label>
                           </Box>
 
                           <Flex mt="6" justify="end" gap="3">
-                            <Button tabIndex={-1} variant="soft">
+                            <Button variant="surface" highContrast color="gray">
                               Create an account
                             </Button>
-                            <Button tabIndex={-1}>Sign in</Button>
+                            <Button variant="solid">Sign in</Button>
                           </Flex>
                         </Card>
                       </Flex>
@@ -1127,7 +1127,7 @@ export default function ExploreComponents() {
                                     ml={variant === 'ghost' ? '3' : '0'}
                                     my={variant === 'ghost' ? '4' : '0'}
                                   >
-                                    <a href="#card">
+                                    <button>
                                       {/* @ts-ignore */}
                                       <Flex align="center" gap={String(+size + 1)}>
                                         <Avatar
@@ -1147,7 +1147,7 @@ export default function ExploreComponents() {
                                           </Text>
                                         </Box>
                                       </Flex>
-                                    </a>
+                                    </button>
                                   </Card>
                                 </Flex>
                               </td>
@@ -2276,7 +2276,7 @@ export default function ExploreComponents() {
                   <Flex my="6" gap="6">
                     <Card size="2">
                       <Flex>
-                        <Inset side="left" pr="current">
+                        <Inset side="left" clip="padding-box" pr="current">
                           <InsetImage />
                         </Inset>
                         <Text as="p" size="3" style={{ width: 240 }}>
@@ -2292,7 +2292,7 @@ export default function ExploreComponents() {
                           <Strong>Typography</Strong> is the art and technique of arranging type to
                           make written language legible, readable and appealing when displayed.
                         </Text>
-                        <Inset side="right" pl="current">
+                        <Inset side="right" clip="padding-box" pl="current">
                           <InsetImage />
                         </Inset>
                       </Flex>
@@ -2301,7 +2301,7 @@ export default function ExploreComponents() {
 
                   <Flex my="6" gap="6">
                     <Card size="2" style={{ width: 300 }}>
-                      <Inset side="top" pb="current">
+                      <Inset side="top" clip="padding-box" pb="current">
                         <InsetImage style={{ width: '100%', height: 160 }} />
                       </Inset>
                       <Text as="p" size="3" style={{ width: 240 }}>
@@ -2315,7 +2315,7 @@ export default function ExploreComponents() {
                         <Strong>Typography</Strong> is the art and technique of arranging type to
                         make written language legible, readable and appealing when displayed.
                       </Text>
-                      <Inset side="bottom" pt="current">
+                      <Inset side="bottom" clip="padding-box" pt="current">
                         <InsetImage style={{ width: '100%', height: 160 }} />
                       </Inset>
                     </Card>
@@ -4180,7 +4180,7 @@ function AvatarIconFallback() {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className="w-6 h-6"
+      style={{ width: '60%', height: '60%' }}
     >
       <path
         fillRule="evenodd"

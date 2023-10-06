@@ -51,7 +51,7 @@ const TabsTrigger = React.forwardRef<TabsTriggerElement, TabsTriggerProps>(
       <TabsPrimitive.Trigger
         {...triggerProps}
         ref={forwardedRef}
-        className={classNames('rt-reset-button', 'rt-TabsTrigger', className)}
+        className={classNames('rt-reset', 'rt-TabsTrigger', className)}
       >
         <span className="rt-TabsTriggerInner">{children}</span>
         <span className="rt-TabsTriggerInnerHidden">{children}</span>
@@ -85,3 +85,4 @@ const Tabs = Object.assign(
 );
 
 export { Tabs, TabsRoot, TabsList, TabsTrigger, TabsContent };
+export type { TabsRootProps, TabsListProps, TabsTriggerProps, TabsContentProps };

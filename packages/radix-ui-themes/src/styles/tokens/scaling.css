@@ -1,14 +1,4 @@
-@import './tokens/typography.css';
-@import './tokens/color.css';
-@import './tokens/shadow.css';
-@import './tokens/space.css';
-@import './tokens/radius.css';
-
-/* scaling */
 .radix-themes {
-  /* default: regular */
-  --scaling: 1;
-
   &:where([data-scaling='90%']) {
     --scaling: 0.9;
   }
